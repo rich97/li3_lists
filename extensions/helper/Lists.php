@@ -4,11 +4,11 @@ namespace li3_lists\extensions\helper;
 
 class Lists extends \lithium\template\Helper {
 
-    protected $_append = true;
+	protected $_append = true;
 
-    protected $_liOptions = array();
+	protected $_liOptions = array();
 
-    protected $_ulOptions = array();
+	protected $_ulOptions = array();
 
 	protected $_list = array();
 
@@ -75,15 +75,15 @@ class Lists extends \lithium\template\Helper {
 		return null;
 	}
 
-    protected function _config(array $config = array()) {
-        if (empty($config['append'])) {
-            $config['append'] = true;
-        }
-        $this->_append = $config['append'];
+	protected function _config(array $config = array()) {
+		if (empty($config['append'])) {
+			$config['append'] = true;
+		}
+		$this->_append = $config['append'];
 
 		$config += array('li' => array(), 'ul' => array());
 		$this->_liOptions = $config['li'];
 		$this->_ulOptions = $config['ul'];
-    }
+	}
 
 }
