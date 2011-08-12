@@ -12,6 +12,10 @@ class Lists extends \lithium\template\Helper {
 
 	protected $_list = array();
 
+	protected $_strings = array(
+		'link' => '<a href="{:url}"{:options}>{:title}</a>'
+	);
+
 	public function __construct(array $config = array()) {
 		parent::__construct($config);
 		$this->_config($config);
@@ -59,20 +63,22 @@ class Lists extends \lithium\template\Helper {
 	}
 
 	protected function _generate($name, $data = null) {
-		if ($data) {
-			return $this->_context->html->nestedList(
-				$data, $this->_liOptions, $this->_ulOptions
-			);
+		if (!$data && array_key_exists($name, $this->_list)) {
+			$data = $this->_list[$name];
 		}
 
-		if (array_key_exists($name, $this->_list)) {
-			return $this->_context->html->nestedList(
-				$this->_list[$name],
-				$this->_liOptions,
-				$this->_ulOptions
-			);
+		foreach($data as $title => $url) {
+			var_dump($url);
+			if (is_array($url)) {
+				$data[$title] = $this->_render(
+					__METHOD__, 'link', compact('title', 'url')
+				);
+			}
 		}
-		return null;
+
+		return $this->_context->html->nestedList(
+			$data, $this->_liOptions, $this->_ulOptions
+		);
 	}
 
 	protected function _config(array $config = array()) {

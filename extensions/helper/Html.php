@@ -6,7 +6,7 @@ class Html extends \lithium\template\helper\Html {
 
 	public function nestedList($list, $liOptions = array(), $ulOptions = array()) {
 		$content = '';
-		foreach ($list as $item) {
+		foreach ($list as $key => $item) {
 			if (is_array($item)) {
 				$item = $this->nestedList($item, $liOptions);
 			}
